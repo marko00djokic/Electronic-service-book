@@ -1,0 +1,31 @@
+{
+  "name": "electronic-service-book",
+  "version": "1.0.0",
+  "description": "Elektronska servisna knjizica za auto-servisere",
+  "main": "out/main/index.js",
+  "scripts": {
+    "dev": "electron-vite dev",
+    "build": "electron-vite build",
+    "preview": "electron-vite preview",
+    "build:win": "npm run build && electron-builder --win",
+    "postinstall": "electron-rebuild -f -w better-sqlite3"
+  },
+  "dependencies": {
+    "axios": "^1.7.2",
+    "better-sqlite3": "^9.4.3",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-router-dom": "^6.23.1"
+  },
+  "devDependencies": {
+    "@electron/rebuild": "^3.6.0",
+    "@vitejs/plugin-react": "^4.3.0",
+    "autoprefixer": "^10.4.19",
+    "electron": "^31.0.0",
+    "electron-builder": "^24.13.3",
+    "electron-vite": "^2.3.0",
+    "postcss": "^8.4.38",
+    "tailwindcss": "^3.4.4",
+    "vite": "^5.3.1"
+  }
+}
