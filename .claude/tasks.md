@@ -1,15 +1,22 @@
 # Task Backlog
 
-## FAZA 1 — Project Setup
+## FAZA 1 — Project Setup ✅ ZAVRŠENA
 
-- [ ] Inicijalizacija Electron + React projekta (electron-vite boilerplate)
-- [ ] Konfiguracija TailwindCSS
-- [ ] Postavljanje folder strukture po konvencijama
-- [ ] Setup better-sqlite3 i kreiranje inicijalnih migracija
-- [ ] Osnovna navigacija (sidebar menu: Vozila, Vlasnici, Nalozi, Katalog, Dashboard)
-- [ ] Glavni layout komponente (Sidebar, TopBar, MainContent)
-- [ ] Setup electron-builder za Windows build
-- [ ] .env konfiguracija (API URL, database path)
+- [x] Inicijalizacija Electron + React projekta (electron-vite boilerplate)
+- [x] Konfiguracija TailwindCSS
+- [x] Postavljanje folder strukture po konvencijama
+- [x] Setup better-sqlite3 i kreiranje inicijalnih migracija
+- [x] Osnovna navigacija (sidebar menu: Vozila, Vlasnici, Nalozi, Katalog, Dashboard)
+- [x] Glavni layout komponente (Sidebar, TopBar, MainContent)
+- [x] Setup electron-builder za Windows build
+- [x] .env konfiguracija (API URL, database path)
+
+### ⚠️ Preduslovi za Fazu 2:
+- [ ] Instalirati VS 2022 Community (Desktop development with C++ workload)
+- [ ] Pokrenuti `cd desktop-app && npm run postinstall` da se kompajlira better-sqlite3
+- [ ] Verifikovati `npm run dev` pokreće Electron prozor
+- [ ] Verifikovati `window.api.ping()` vraća 'pong' u DevTools konzoli
+- [ ] Mergati `feature/phase-1-setup` u `main2`
 
 ## FAZA 2 — Vozila i Vlasnici
 

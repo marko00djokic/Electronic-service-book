@@ -1,46 +1,50 @@
 # Progress Log
 
-## Poslednja sesija: 2026-05-03
+## Sesija: 2026-05-04 — Faza 1 završena
 
 ### Šta je urađeno:
-- Kreirana kompletna projektna dokumentacija i context fajlovi
-- Definisan plan razvoja u 6 faza u docs/Electronic-service-book.md
-- Definisan tech stack i arhitektura sistema
-- Kreirani svi context fajlovi: CLAUDE.md, project.md, tasks.md, decisions.md
-- Kreirani skeleton fajlovi: technical_manual.md, user_manual.md
-- Kreirana kompletna folder struktura projekta
+- Faza 1 kompletno implementirana na branch `feature/phase-1-setup`
+- electron-vite boilerplate sa React 18 i React Router 6 (HashRouter)
+- TailwindCSS 3 konfigurisan i kompajlira se ispravno (13.62 kB CSS output)
+- SQLite baza: migration runner sistem sa transakcijama
+- Inicijalna migracija 001_initial.js — sve tabele kreirane (9 tabela)
+- Electron main/preload/renderer arhitektura — contextIsolation, IPC ping
+- Layout: Sidebar (6 nav linkova, aktivan state) + TopBar + Outlet
+- 6 placeholder stranica za sve module
+- electron-builder NSIS config za Windows installer
+- `electron-vite build` prošao bez grešaka ✅
 
 ### Trenutno stanje koda:
 
-| Komponenta                  | Status         |
-|-----------------------------|----------------|
-| Projektna dokumentacija     | ✅ Završena    |
-| Desktop app setup           | ❌ Nije početo |
-| SQLite šema + migracije     | ❌ Nije početo |
-| Vozila CRUD                 | ❌ Nije početo |
-| Vlasnici CRUD               | ❌ Nije početo |
-| Servisni nalozi             | ❌ Nije početo |
-| Katalog delova/usluga       | ❌ Nije početo |
-| PDF export                  | ❌ Nije početo |
-| Dashboard + podsetnici      | ❌ Nije početo |
-| Cloud API (Express)         | ❌ Nije početo |
-| MySQL šema                  | ❌ Nije početo |
-| Sync mehanizam              | ❌ Nije početo |
-| Web portal                  | ❌ Nije početo |
-| Windows installer           | ❌ Nije početo |
+| Komponenta                  | Status              |
+|-----------------------------|---------------------|
+| Projektna dokumentacija     | ✅ Završena         |
+| Desktop app setup           | ✅ Faza 1 završena  |
+| SQLite šema + migracije     | ✅ DDL kreiran      |
+| Vozila CRUD                 | ❌ Nije početo      |
+| Vlasnici CRUD               | ❌ Nije početo      |
+| Servisni nalozi             | ❌ Nije početo      |
+| Katalog delova/usluga       | ❌ Nije početo      |
+| PDF export                  | ❌ Nije početo      |
+| Dashboard + podsetnici      | ❌ Nije početo      |
+| Cloud API (Express)         | ❌ Nije početo      |
+| MySQL šema                  | ❌ Nije početo      |
+| Sync mehanizam              | ❌ Nije početo      |
+| Web portal                  | ❌ Nije početo      |
+| Windows installer           | ⚠️ Config kreiran, build nije testiran |
 
-### Poslednji fajlovi koje smo dirali:
-- CLAUDE.md
-- .claude/project.md
-- .claude/progress.md
-- .claude/tasks.md
-- .claude/decisions.md
-- docs/Electronic-service-book.md
-- docs/technical/technical_manual.md
-- docs/user/user_manual.md
+### Git stanje:
+- Branch: `feature/phase-1-setup` (worktree: `.worktrees/phase-1-setup/`)
+- 8 commitova na branch-u (od `6c6f892` do `75535d7`)
+- Merge u `main2` pending (nakon verifikacije)
 
 ### Poznati problemi / Tech debt:
-- Nema još — projekat je u fazi dokumentacije
+- `better-sqlite3` native modul nije kompajliran — mašina ima VS 2025 Preview
+  (verzija 18, node-gyp podržava do VS 2022 / verzija 17)
+  **Fix:** Instaliraj VS 2022 Community sa "Desktop development with C++" workload,
+  pa pokreni: `cd desktop-app && npm run postinstall`
+- `npm run dev` neće raditi dok better-sqlite3 nije kompajliran (main process crasha
+  pri `initDatabase()` pozivu). Renderer dio (React UI) je ispravan.
 
 ### Serverska infrastruktura (potvrđeno):
 - Node.js v20.20.2 ✅
@@ -52,6 +56,6 @@
 - Startup file: app.js ✅
 
 ### Sledeća sesija treba da počne sa:
-Faza 1 — Electron + React boilerplate, folder struktura, SQLite setup,
-osnovna navigacija. Prompt za ovu fazu se nalazi u:
-`docs/Electronic-service-book.md` → FAZA 1 PROMPT
+Faza 2 — Vozila i Vlasnici CRUD.
+Prompt za ovu fazu: `docs/Electronic-service-book.md` → FAZA 2 PROMPT
+PRE TOGA: Resolvi better-sqlite3 compile problem (VS 2022 build tools)
