@@ -65,6 +65,9 @@ cd web-portal && npm run dev
 - React komponente su u PascalCase, fajlovi u kebab-case
 - Electron main process i renderer su strogo odvojeni (security)
 - IPC komunikacija između main i renderer **ISKLJUČIVO kroz preload.js**
+- Migracioni fajlovi idu u `desktop-app/database/migrations/` (ne u `src/main/migrations/`)
+  — Napomena: `001_initial.js` je kreiran u `src/main/migrations/` pre uvođenja ove konvencije i ne treba ga pomerati
+- Za razvoj novih funkcionalnosti kreiraj GitHub granu (npr. `feature/phase-2-vehicles`), nemoj koristiti `.worktrees/` direktorijume — verzionisanje ide kroz GitHub, ne kroz lokalne foldere
 
 ### Imenovanje:
 - Tabele baze: `snake_case`, množina (`vehicles`, `service_orders`)
