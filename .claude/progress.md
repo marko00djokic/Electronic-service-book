@@ -13,6 +13,13 @@
 - 6 placeholder stranica za sve module
 - electron-builder NSIS config za Windows installer
 - `electron-vite build` prošao bez grešaka ✅
+  - SQLite modeli: vehicle.js, owner.js, ownershipHistory.js
+  - IPC handleri: vehicles-ipc.js, owners-ipc.js, registrovani u ipc/index.js
+  - Preload API: window.api.vehicles, window.api.owners, window.api.ownership
+  - React stranice: VehicleList, VehicleForm, VehicleDetail, OwnerList, OwnerForm, OwnerDetail
+  - React Router rute za /vehicles/* i /owners/*
+  - Validacije: VIN (17 chars, bez I/O/Q), telefon (srpski format), obavezna polja
+  - CLAUDE.md ažuriran: putanja migracija, konvencija za grane
 
 ### Trenutno stanje koda:
 
@@ -21,8 +28,8 @@
 | Projektna dokumentacija     | ✅ Završena         |
 | Desktop app setup           | ✅ Faza 1 završena  |
 | SQLite šema + migracije     | ✅ DDL kreiran      |
-| Vozila CRUD                 | ❌ Nije početo      |
-| Vlasnici CRUD               | ❌ Nije početo      |
+| Vozila CRUD                 | ✅ Faza 2 završena  |
+| Vlasnici CRUD               | ✅ Faza 2 završena  |
 | Servisni nalozi             | ❌ Nije početo      |
 | Katalog delova/usluga       | ❌ Nije početo      |
 | PDF export                  | ❌ Nije početo      |
@@ -56,6 +63,6 @@
 - Startup file: app.js ✅
 
 ### Sledeća sesija treba da počne sa:
-Faza 2 — Vozila i Vlasnici CRUD.
-Prompt za ovu fazu: `docs/Electronic-service-book.md` → FAZA 2 PROMPT
-PRE TOGA: Resolvi better-sqlite3 compile problem (VS 2022 build tools)
+  Faza 3 — Servisni nalozi.
+  Prompt za ovu fazu: `docs/Electronic-service-book.md` → FAZA 3 PROMPT
+  
