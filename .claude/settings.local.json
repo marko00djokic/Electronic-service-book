@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(ls -d .worktrees)",
+      "Bash(ls -d worktrees)",
+      "Bash(npm install *)",
+      "PowerShell(git *)",
+      "Bash(git *)",
+      "Bash(npx electron-vite *)",
+      "Bash(Copy-Item *)",
+      "Bash(ls package.json package-lock.json)",
+      "Bash(ls node_modules/.bin/electron-vite)"
+    ]
+  }
+}
