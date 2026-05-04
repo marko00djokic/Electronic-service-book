@@ -12,25 +12,25 @@
 - [x] .env konfiguracija (API URL, database path)
 
 ### ⚠️ Preduslovi za Fazu 2:
-- [ ] Instalirati VS 2022 Community (Desktop development with C++ workload)
-- [ ] Pokrenuti `cd desktop-app && npm run postinstall` da se kompajlira better-sqlite3
-- [ ] Verifikovati `npm run dev` pokreće Electron prozor
-- [ ] Verifikovati `window.api.ping()` vraća 'pong' u DevTools konzoli
-- [ ] Mergati `feature/phase-1-setup` u `main2`
+- [x] Instalirati VS 2022 Community (Desktop development with C++ workload)
+- [x] Pokrenuti `cd desktop-app && npm run postinstall` da se kompajlira better-sqlite3
+- [x] Verifikovati `npm run dev` pokreće Electron prozor
+- [x] Verifikovati `window.api.ping()` vraća 'pong' u DevTools konzoli
+- [x] Mergati `feature/phase-1-setup` u `main2`
 
-## FAZA 2 — Vozila i Vlasnici
+## FAZA 2 — Vozila i Vlasnici ✅ ZAVRŠENA
 
-  - [x] SQLite migracije: vehicles, owners, ownership_history tabele
-  - [x] Vehicle model i CRUD operacije (main process)
-  - [x] Owner model i CRUD operacije (main process)
-  - [x] IPC handlers za vozila i vlasnike
-  - [x] VehicleList stranica sa pretragom i filterima
-  - [x] VehicleForm komponenta (dodavanje/editovanje)
-  - [x] VehicleDetail stranica sa istorijom vlasništva
-  - [x] OwnerList stranica
-  - [x] OwnerForm komponenta
-  - [x] OwnerDetail stranica sa listom vozila
-  - [x] Validacije formi (VIN format, obavezna polja)
+- [x] SQLite migracije: vehicles, owners, ownership_history tabele
+- [x] Vehicle model i CRUD operacije (main process)
+- [x] Owner model i CRUD operacije (main process)
+- [x] IPC handlers za vozila i vlasnike
+- [x] VehicleList stranica sa pretragom i filterima
+- [x] VehicleForm komponenta (dodavanje/editovanje)
+- [x] VehicleDetail stranica sa istorijom vlasništva
+- [x] OwnerList stranica
+- [x] OwnerForm komponenta
+- [x] OwnerDetail stranica sa listom vozila
+- [x] Validacije formi (VIN format, obavezna polja)
 
 ## FAZA 3 — Servisni Nalozi
 
