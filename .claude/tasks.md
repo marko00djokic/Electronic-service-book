@@ -20,17 +20,17 @@
 
 ## FAZA 2 — Vozila i Vlasnici
 
-- [ ] SQLite migracije: vehicles, owners, ownership_history tabele
-- [ ] Vehicle model i CRUD operacije (main process)
-- [ ] Owner model i CRUD operacije (main process)
-- [ ] IPC handlers za vozila i vlasnike
-- [ ] VehicleList stranica sa pretragom i filterima
-- [ ] VehicleForm komponenta (dodavanje/editovanje)
-- [ ] VehicleDetail stranica sa istorijom vlasništva
-- [ ] OwnerList stranica
-- [ ] OwnerForm komponenta
-- [ ] OwnerDetail stranica sa listom vozila
-- [ ] Validacije formi (VIN format, obavezna polja)
+  - [x] SQLite migracije: vehicles, owners, ownership_history tabele
+  - [x] Vehicle model i CRUD operacije (main process)
+  - [x] Owner model i CRUD operacije (main process)
+  - [x] IPC handlers za vozila i vlasnike
+  - [x] VehicleList stranica sa pretragom i filterima
+  - [x] VehicleForm komponenta (dodavanje/editovanje)
+  - [x] VehicleDetail stranica sa istorijom vlasništva
+  - [x] OwnerList stranica
+  - [x] OwnerForm komponenta
+  - [x] OwnerDetail stranica sa listom vozila
+  - [x] Validacije formi (VIN format, obavezna polja)
 
 ## FAZA 3 — Servisni Nalozi
 
