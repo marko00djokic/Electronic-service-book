@@ -41,14 +41,17 @@ export function update(id, data) {
 
 export function remove(id) {
   const db = getDatabase()
-  const active = db.prepare(`
-    SELECT COUNT(*) AS count FROM ownership_history
-    WHERE owner_id = ? AND end_date IS NULL
-  `).get(id)
-  if (active.count > 0) {
-    throw new Error('Vlasnik ima aktivno vozilo i ne može biti obrisan')
-  }
-  db.prepare('DELETE FROM owners WHERE id = ?').run(id)
+  const run = db.transaction(() => {
+    const active = db.prepare(`
+      SELECT COUNT(*) AS count FROM ownership_history
+      WHERE owner_id = ? AND end_date IS NULL
+    `).get(id)
+    if (active.count > 0) {
+      throw new Error('Vlasnik ima aktivno vozilo i ne može biti obrisan')
+    }
+    db.prepare('DELETE FROM owners WHERE id = ?').run(id)
+  })
+  run()
   return { success: true }
 }
 

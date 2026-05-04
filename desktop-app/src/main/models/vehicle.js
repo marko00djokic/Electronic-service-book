@@ -57,8 +57,11 @@ export function update(id, data) {
 
 export function remove(id) {
   const db = getDatabase()
-  db.prepare('DELETE FROM ownership_history WHERE vehicle_id = ?').run(id)
-  db.prepare('DELETE FROM vehicles WHERE id = ?').run(id)
+  const run = db.transaction(() => {
+    db.prepare('DELETE FROM ownership_history WHERE vehicle_id = ?').run(id)
+    db.prepare('DELETE FROM vehicles WHERE id = ?').run(id)
+  })
+  run()
   return { success: true }
 }
 
