@@ -114,5 +114,61 @@ Sesija prekinuta nestankom struje — backend je bio 100% završen, dovršen je 
 - Branch: `main2` (izmene nisu komitovane — faza 3 fajlovi su untracked/modified)
 
 ### Sledeća sesija treba da počne sa:
-Faza 4 — Dashboard i podsetnici.
-Prompt za ovu fazu: `docs/Electronic-service-book.md` → FAZA 4 PROMPT
+Faza 5 — Cloud Sync + API.
+Prompt za ovu fazu: `docs/Electronic-service-book.md` → FAZA 5 PROMPT
+
+---
+
+## Sesija: 2026-05-05 — Faza 4 završena
+
+### Šta je urađeno:
+
+**Backend (main process):**
+- `dashboard-ipc.js` — 7 IPC handlera:
+  - `dashboard:getStats` — KPI agregacije (ukupno vozila, nalozi/prihodi ovog meseca, broj vozila kojima se bliži servis)
+  - `dashboard:getMonthlyRevenue(year)` — prihodi po mesecima za izabranu godinu
+  - `dashboard:getServiceTypeDistribution` — raspodela naloga po vrsti servisa
+  - `dashboard:getRecentOrders` — poslednjih 5 servisnih naloga
+  - `dashboard:getUpcomingServices(days, kmThreshold)` — vozila kojima se bliži servis
+  - `dashboard:getOverdueVehiclesCount` — broj vozila sa prekoračenim rokom
+  - `dashboard:globalSearch(query)` — pretraga po vozilima, vlasnicima i nalozima
+- `ipc/index.js` — registrovani dashboard handleri
+- `main/index.js` — Electron notifikacija pri pokretanju: prikazuje Windows toast za prekoračene rokove, klik vodi na /reminders
+
+**Preload:**
+- `preload/index.js` — dodat `window.api.dashboard` namespace (7 metoda)
+- Dodat `window.electronEvents` za IPC navigate event (klik na notifikaciju)
+
+**Frontend:**
+- `Dashboard.jsx` — KPI kartice (4), LineChart prihoda po mesecima (Recharts), PieChart raspodele servisa (Recharts), tabela poslednjih 5 naloga
+- `Reminders.jsx` — tabela vozila kojima se bliži servis, sortirana po urgentnosti (prekoračeno → bliži se → u redu), vizuelni indikatori (crveno/žuto/zeleno), filter za period i km prag, dugme "Novi nalog" za direktno kreiranje
+- `TopBar.jsx` — GlobalSearch sa debounce 250ms, dropdown sa rezultatima grupisanim po kategorijama (vozila/vlasnici/nalozi), klik navigira do odgovarajuće stranice
+- `App.jsx` — dodat `NotificationNavigator` komponent koji sluša Electron IPC `navigate` event
+
+**Zavisnosti:**
+- `recharts` instaliran (39 paketa)
+
+### Trenutno stanje koda:
+
+| Komponenta                  | Status              |
+|-----------------------------|---------------------|
+| Projektna dokumentacija     | ✅ Završena         |
+| Desktop app setup           | ✅ Faza 1 završena  |
+| SQLite šema + migracije     | ✅ DDL kreiran      |
+| Vozila CRUD                 | ✅ Faza 2 završena  |
+| Vlasnici CRUD               | ✅ Faza 2 završena  |
+| Servisni nalozi             | ✅ Faza 3 završena  |
+| Katalog delova/usluga       | ✅ Faza 3 završena  |
+| PDF export                  | ✅ Faza 3 završena  |
+| Specijalne evidencije       | ✅ Faza 3 završena  |
+| Dashboard + podsetnici      | ✅ Faza 4 završena  |
+| Globalna pretraga           | ✅ Faza 4 završena  |
+| Electron notifikacije       | ✅ Faza 4 završena  |
+| Cloud API (Express)         | ❌ Nije početo      |
+| MySQL šema                  | ❌ Nije početo      |
+| Sync mehanizam              | ❌ Nije početo      |
+| Web portal                  | ❌ Nije početo      |
+| Windows installer           | ⚠️ Config kreiran, build nije testiran |
+
+### Git stanje:
+- Branch: `feature/phase-4-dashboard` (izmene nisu komitovane)

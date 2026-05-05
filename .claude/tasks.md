@@ -49,15 +49,21 @@
 - [x] App.jsx — sve Faza 3 rute registrovane
 - [x] VehicleDetail — link ka specijalnim evidencijama
 
-## FAZA 4 — Dashboard i Podsetnici
+## FAZA 4 — Dashboard i Podsetnici ✅ ZAVRŠENA
 
-- [ ] Dashboard stranica — statistike (ukupno vozila, naloga, prihoda)
-- [ ] Grafikon prihoda po mesecima (Recharts)
-- [ ] Grafikon po vrsti servisa
-- [ ] Lista vozila kojima se bliži servis (po datumu i km)
-- [ ] Podsetnik notifikacije u Electronu
-- [ ] Pretraga kroz celu aplikaciju
-- [ ] Filteri i sortiranje lista
+- [x] Dashboard stranica — KPI kartice (ukupno vozila, nalozi/prihodi ovog meseca, bliži se servis)
+- [x] Grafikon prihoda po mesecima (Recharts LineChart, filter po godini)
+- [x] Grafikon po vrsti servisa (Recharts PieChart)
+- [x] Lista poslednjih 5 servisnih naloga na dashboardu
+- [x] Reminders stranica — vozila kojima se bliži servis (datum + km prag), sortirana po urgentnosti
+- [x] Vizuelni indikatori: crvena (prekoračeno), žuta (bliži se), zelena (u redu)
+- [x] Dugme "Novi nalog" za direktno kreiranje iz Reminders stranice
+- [x] Electron notifikacija pri pokretanju — prekoračeni rokovi
+- [x] Klik na notifikaciju otvara Reminders stranicu
+- [x] GlobalSearch u TopBaru — pretraga po vozilima, vlasnicima, nalozima (debounce 250ms)
+- [x] Dropdown rezultati grupisani po kategorijama, klik navigira na stranicu
+- [x] dashboard-ipc.js — 7 IPC handlera za dashboard i pretragu
+- [x] recharts instaliran
 
 ## FAZA 5 — Cloud Sync + API
 

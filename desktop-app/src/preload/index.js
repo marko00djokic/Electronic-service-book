@@ -1,5 +1,10 @@
 import { contextBridge, ipcRenderer } from 'electron'
 
+contextBridge.exposeInMainWorld('electronEvents', {
+  onNavigate: (callback) => ipcRenderer.on('navigate', (_, path) => callback(path)),
+  removeNavigateListener: () => ipcRenderer.removeAllListeners('navigate'),
+})
+
 contextBridge.exposeInMainWorld('api', {
   ping: () => ipcRenderer.invoke('ping'),
 
@@ -70,5 +75,15 @@ contextBridge.exposeInMainWorld('api', {
   pdf: {
     serviceBook: (vehicleId) => ipcRenderer.invoke('pdf:serviceBook', vehicleId),
     order:       (orderId)   => ipcRenderer.invoke('pdf:order', orderId),
+  },
+
+  dashboard: {
+    getStats:                 ()                       => ipcRenderer.invoke('dashboard:getStats'),
+    getMonthlyRevenue:        (year)                   => ipcRenderer.invoke('dashboard:getMonthlyRevenue', year),
+    getServiceTypeDistribution: ()                     => ipcRenderer.invoke('dashboard:getServiceTypeDistribution'),
+    getRecentOrders:          ()                       => ipcRenderer.invoke('dashboard:getRecentOrders'),
+    getUpcomingServices:      (days, kmThreshold)      => ipcRenderer.invoke('dashboard:getUpcomingServices', days, kmThreshold),
+    getOverdueVehiclesCount:  ()                       => ipcRenderer.invoke('dashboard:getOverdueVehiclesCount'),
+    globalSearch:             (query)                  => ipcRenderer.invoke('dashboard:globalSearch', query),
   },
 })
