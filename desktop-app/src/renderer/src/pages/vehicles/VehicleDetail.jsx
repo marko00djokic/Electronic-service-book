@@ -58,6 +58,10 @@ export default function VehicleDetail() {
                     <p className="text-gray-500 font-mono text-sm mt-1">{vehicle.vin}</p>
                 </div>
                 <div className="flex gap-2">
+                    <button onClick={() => navigate(`/vehicles/${id}/special`)}
+                        className="border border-gray-300 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-50 text-sm">
+                        Spec. evidencije
+                    </button>
                     <button onClick={() => navigate(`/vehicles/${id}/edit`)}
                         className="border border-gray-300 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-50 text-sm">
                         Izmeni

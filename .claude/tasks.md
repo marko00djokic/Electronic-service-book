@@ -32,19 +32,22 @@
 - [x] OwnerDetail stranica sa listom vozila
 - [x] Validacije formi (VIN format, obavezna polja)
 
-## FAZA 3 — Servisni Nalozi
+## FAZA 3 — Servisni Nalozi ✅ ZAVRŠENA
 
-- [ ] SQLite migracije: service_orders, service_items, service_parts, special_records, parts_catalog tabele
-- [ ] ServiceOrder model i CRUD operacije
-- [ ] PartsCatalog model i CRUD operacije
-- [ ] IPC handlers za naloge i katalog
-- [ ] ServiceOrderList stranica
-- [ ] ServiceOrderForm — kompleksna forma sa sekcijama
-- [ ] ServiceOrderDetail stranica (pregled naloga)
-- [ ] PartsCatalog stranica (upravljanje katalogom)
-- [ ] PDF export — servisna knjižica vozila
-- [ ] PDF export — pojedinačni servisni nalog
-- [ ] Specijalne evidencije (gume, kočnice, OBD, klima...)
+- [x] SQLite migracije: service_orders, service_items, service_parts, special_records, parts_catalog tabele
+- [x] ServiceOrder model i CRUD operacije
+- [x] PartsCatalog model i CRUD operacije
+- [x] IPC handlers za naloge i katalog (service-orders-ipc, parts-catalog-ipc, special-records-ipc, pdf-ipc)
+- [x] Preload API: serviceOrders, serviceItems, serviceParts, specialRecords, catalog, pdf
+- [x] ServiceOrderList stranica sa filterima i pretragom
+- [x] ServiceOrderForm — 5-tab forma sa react-select autocomplete
+- [x] ServiceOrderDetail stranica (pregled naloga + PDF štampa)
+- [x] PartsCatalog stranica (inline CRUD tabela sa pretragom)
+- [x] PDF export — servisna knjižica vozila (generateServiceBookPdf)
+- [x] PDF export — pojedinačni servisni nalog (generateOrderPdf)
+- [x] Specijalne evidencije (SpecialRecords.jsx — 6 tipova sa dinamičkim formama)
+- [x] App.jsx — sve Faza 3 rute registrovane
+- [x] VehicleDetail — link ka specijalnim evidencijama
 
 ## FAZA 4 — Dashboard i Podsetnici
 

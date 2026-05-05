@@ -66,6 +66,53 @@
 ### Git stanje:
 - Branch: `feature/phase-2-vehicles-owners` merged u `main2`
 
+---
+
+## Sesija: 2026-05-05 — Faza 3 završena
+
+### Šta je urađeno (nastavak prekinute sesije):
+Sesija prekinuta nestankom struje — backend je bio 100% završen, dovršen je frontend:
+
+**Backend (završeno u prethodnoj sesiji):**
+- SQLite tabele: sve u `001_initial.js` (parts_catalog, service_orders, service_items, service_parts, special_records)
+- Modeli: `serviceOrder.js`, `serviceItem.js`, `servicePart.js`, `specialRecord.js`, `partsCatalog.js`
+- IPC handleri: `service-orders-ipc.js`, `parts-catalog-ipc.js`, `special-records-ipc.js`, `pdf-ipc.js`
+- Preload API: `window.api.serviceOrders`, `serviceItems`, `serviceParts`, `specialRecords`, `catalog`, `pdf`
+- PDF generator: `pdfGenerator.js` — `generateServiceBookPdf` i `generateOrderPdf`
+- Zavisnosti: `jspdf` i `react-select` instalirani
+
+**Frontend (završeno u ovoj sesiji):**
+- `ServiceOrderList.jsx` — tabela naloga sa filterima i pretragom
+- `ServiceOrderForm.jsx` — 5-tab forma (Osnovno, Radovi, Delovi, Finansije, Preporuke) sa react-select autocomplete
+- `ServiceOrderDetail.jsx` — read-only pregled naloga + PDF štampa
+- `PartsCatalog.jsx` — inline CRUD tabela sa pretragom (`pages/catalog/`)
+- `SpecialRecords.jsx` — grupovane evidencije po tipu sa dinamičkom formom (`pages/service-orders/`)
+- `App.jsx` — sve Faza 3 rute: `/service-orders/*`, `/catalog`, `/vehicles/:id/special`
+- `VehicleDetail.jsx` — dodat dugme "Spec. evidencije" → `/vehicles/:id/special`
+
+### Trenutno stanje koda:
+
+| Komponenta                  | Status              |
+|-----------------------------|---------------------|
+| Projektna dokumentacija     | ✅ Završena         |
+| Desktop app setup           | ✅ Faza 1 završena  |
+| SQLite šema + migracije     | ✅ DDL kreiran      |
+| Vozila CRUD                 | ✅ Faza 2 završena  |
+| Vlasnici CRUD               | ✅ Faza 2 završena  |
+| Servisni nalozi             | ✅ Faza 3 završena  |
+| Katalog delova/usluga       | ✅ Faza 3 završena  |
+| PDF export                  | ✅ Faza 3 završena  |
+| Specijalne evidencije       | ✅ Faza 3 završena  |
+| Dashboard + podsetnici      | ❌ Nije početo      |
+| Cloud API (Express)         | ❌ Nije početo      |
+| MySQL šema                  | ❌ Nije početo      |
+| Sync mehanizam              | ❌ Nije početo      |
+| Web portal                  | ❌ Nije početo      |
+| Windows installer           | ⚠️ Config kreiran, build nije testiran |
+
+### Git stanje:
+- Branch: `main2` (izmene nisu komitovane — faza 3 fajlovi su untracked/modified)
+
 ### Sledeća sesija treba da počne sa:
-Faza 3 — Servisni nalozi.
-Prompt za ovu fazu: `docs/Electronic-service-book.md` → FAZA 3 PROMPT
+Faza 4 — Dashboard i podsetnici.
+Prompt za ovu fazu: `docs/Electronic-service-book.md` → FAZA 4 PROMPT
