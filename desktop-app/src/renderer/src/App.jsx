@@ -1,4 +1,5 @@
-  import { HashRouter, Routes, Route } from 'react-router-dom'
+  import { useEffect } from 'react'
+  import { HashRouter, Routes, Route, useNavigate } from 'react-router-dom'
   import Layout from './components/layout/Layout'
   import Dashboard from './pages/Dashboard'
   import Reminders from './pages/Reminders'
@@ -14,9 +15,20 @@
   import SpecialRecords from './pages/service-orders/SpecialRecords'
   import PartsCatalog from './pages/catalog/PartsCatalog'
 
+  function NotificationNavigator() {
+    const navigate = useNavigate()
+    useEffect(() => {
+      if (!window.electronEvents) return
+      window.electronEvents.onNavigate((path) => navigate(path))
+      return () => window.electronEvents.removeNavigateListener()
+    }, [navigate])
+    return null
+  }
+
   export default function App() {
     return (
       <HashRouter>
+        <NotificationNavigator />
         <Routes>
           <Route path="/" element={<Layout />}>
             <Route index element={<Dashboard />} />
