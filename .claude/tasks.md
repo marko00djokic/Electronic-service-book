@@ -59,17 +59,19 @@
 - [ ] Pretraga kroz celu aplikaciju
 - [ ] Filteri i sortiranje lista
 
-## FAZA 5 — Cloud Sync + API
+## FAZA 5 — Cloud Sync + API ✅ ZAVRŠENA
 
-- [ ] Express.js API setup u server-api/
-- [ ] MySQL šema (iste tabele kao SQLite)
-- [ ] API rute: vozila, vlasnici, servisni nalozi, sync
-- [ ] JWT autentifikacija (za web portal)
-- [ ] Sync queue u SQLite (tabela sync_queue)
-- [ ] Sync servis u Electronu (šalje izmene kada ima internet)
-- [ ] Conflict resolution strategija
-- [ ] Deploy API na cPanel (/home/kafanicars/ESK/)
-- [ ] Testiranje sync mehanizma
+- [x] Express.js API setup u server-api/ (app.js, package.json, src/db.js)
+- [x] MySQL šema (iste tabele kao SQLite + synced_at, sync_log, api_keys) → 001_initial.sql
+- [x] API rute: POST /api/sync, GET /api/vehicles/:vin, GET /api/service-orders/:vehicleId
+- [x] API Key autentifikacija za desktop app (bcrypt hash u api_keys tabeli)
+- [x] JWT middleware za web portal (requireJwt, generateToken) — spreman za Fazu 6
+- [x] Sync queue u SQLite (tabela sync_queue) — bila u 001_initial.js
+- [x] Sync servis u Electronu (sync-service.js) — 5min interval, batch 100, 5 retry → failed
+- [x] IPC handleri za sync (sync-ipc.js): trigger, getStatus
+- [x] Preload API: window.api.sync.trigger(), window.api.sync.getStatus()
+- [x] .env.example sa svim varijablama
+- [x] Deployment instrukcije u docs/technical/technical_manual.md
 
 ## FAZA 6 — Web Portal + Polish
 

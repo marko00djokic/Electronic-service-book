@@ -136,24 +136,93 @@ DDL skripte se nalaze u `server-api/database/migrations/`.
 
 ### 5.3 Sync mehanizam
 
-→ Detalji u: `.claude/project.md` — sekcija "Offline-first strategija"
+Implementiran u `desktop-app/src/main/sync-service.js`.
 
-Sync servis se nalazi u: `desktop-app/src/main/sync-service.js`
+**Tok:**
+1. Svaka promena podataka u desktop app upisuje se u `sync_queue` (status: `pending`)
+2. Sync servis se pokreće 10s po startu, zatim svakih 5 minuta
+3. Proverava `net.isOnline()` — preskače ako nema interneta
+4. Uzima batch od max 100 `pending` stavki iz queue-a
+5. Šalje `POST /api/sync` sa `x-api-key` headerom
+6. Na uspeh: briše stavke iz queue-a
+7. Na grešku: uvećava `attempts`; posle 5 pokušaja status postaje `failed`
+
+**IPC API (renderer → main):**
+- `window.api.sync.trigger()` — manualni sync
+- `window.api.sync.getStatus()` → `{ pending, failed, syncing }`
+
+**Env varijable u desktop-app/.env:**
+```
+VITE_API_URL=https://kafanica-sa-dobrom-klopom.rs/ESK
+VITE_API_KEY=<isti_kljuc_koji_je_hashovan_u_bazi>
+VITE_DESKTOP_ID=desktop-1
+```
 
 ---
 
 ## 6. API dokumentacija
 
-*Popunjava se u Fazi 5.*
+Base URL (produkcija): `https://kafanica-sa-dobrom-klopom.rs/ESK`
+Base URL (razvoj): `http://localhost:3000/ESK`
 
-### Endpoint-i (preview):
+### 6.1 Endpoint-i
 
-| Method | Ruta                          | Opis                              | Auth       |
-|--------|-------------------------------|-----------------------------------|------------|
-| POST   | /api/sync                     | Prijem batch izmena od desktop    | API Key    |
-| GET    | /api/vehicles/:vin            | Podaci o vozilu po VIN-u          | -          |
-| GET    | /api/service-orders/:vehicleId| Lista servisnih naloga za vozilo  | -          |
-| GET    | /api/service-orders/:id       | Detalji jednog naloga             | -          |
+| Method | Ruta                              | Opis                              | Auth          |
+|--------|-----------------------------------|-----------------------------------|---------------|
+| GET    | /health                           | Health check                      | -             |
+| POST   | /api/sync                         | Prijem batch izmena od desktop    | API Key       |
+| GET    | /api/vehicles/:vin                | Podaci o vozilu po VIN-u          | -             |
+| GET    | /api/service-orders/:vehicleId    | Lista servisnih naloga za vozilo  | -             |
+
+### 6.2 POST /api/sync
+
+**Header:** `x-api-key: <API_KEY>`
+
+**Request body:**
+```json
+{
+  "desktop_id": "desktop-1",
+  "items": [
+    {
+      "id": 42,
+      "entity_type": "vehicle",
+      "operation": "INSERT",
+      "payload": "{\"id\": 1, \"vin\": \"WBA3A5G5XHNY33467\", ...}",
+      "created_at": "2026-05-05T10:00:00"
+    }
+  ]
+}
+```
+
+- `entity_type`: `vehicle` | `owner` | `ownership_history` | `service_order` | `service_item` | `service_part` | `special_record` | `parts_catalog`
+- `operation`: `INSERT` | `UPDATE` | `DELETE`
+- Maksimalno 100 stavki po batch-u
+
+**Response 200:**
+```json
+{ "received": 3, "success": 3, "failed": 0, "errors": [] }
+```
+
+### 6.3 Autentifikacija
+
+- **Desktop app → API sync:** `x-api-key` header sa plain-text ključem koji se poredi sa bcrypt hashom u tabeli `api_keys`
+- **Web portal → API:** JWT Bearer token (za buduću Fazu 6)
+
+### 6.4 Postavljanje API ključa u bazi
+
+Po prvom deployu, unesi hash API ključa:
+
+```bash
+node -e "
+const b = require('bcryptjs');
+b.hash('tvoj_api_kljuc', 10).then(h => console.log(h));
+"
+```
+
+Zatim u MySQL:
+```sql
+INSERT INTO api_keys (key_hash, description) VALUES ('<hash>', 'Desktop app - servis 1');
+```
 
 ---
 
@@ -171,15 +240,41 @@ Konfiguracija: `desktop-app/electron-builder.config.js`
 
 ### 7.2 Deploy API na cPanel
 
-1. Lokalno: pripremi fajlove
-2. Upload u `/home/kafanicars/ESK/` (FTP ili cPanel File Manager)
-3. NE uploadovati `node_modules/` — instaliraj na serveru:
-   - cPanel → Node.js App → Run npm install
-4. Postavi env varijable u cPanel Node.js App konfiguraciji
-5. Set startup file: `app.js`
-6. Klikni Restart
+#### Korak 1 — Priprema MySQL baze
+1. cPanel → MySQL Databases → kreiraj bazu `kafanicars_esb` i korisnika
+2. Dodaj korisnika na bazu sa svim privilegijama
+3. cPanel → phpMyAdmin → izvrši `server-api/database/migrations/001_initial.sql`
 
-**Passenger restart trik:** `touch /home/kafanicars/ESK/tmp/restart.txt`
+#### Korak 2 — Upload fajlova
+```
+Uploadovati u /home/kafanicars/ESK/:
+  app.js
+  package.json
+  src/
+  database/
+```
+NE uploadovati: `node_modules/`, `.env`
+
+#### Korak 3 — Instalacija zavisnosti na serveru
+- cPanel → Node.js App → izaberi `/home/kafanicars/ESK/`
+- Klikni **Run NPM Install**
+
+#### Korak 4 — Env varijable
+- cPanel → Node.js App → Environment Variables
+- Unesi sve varijable iz `server-api/.env.example` sa pravim vrednostima
+
+#### Korak 5 — Startup file i restart
+- Startup file: `app.js`
+- Klikni **Restart Application**
+- Proveri: `curl https://kafanica-sa-dobrom-klopom.rs/ESK/health`
+
+#### Korak 6 — Dodaj API ključ u bazu
+Vidi sekciju 6.4 iznad.
+
+**Passenger restart bez cPanel UI:** `touch /home/kafanicars/ESK/tmp/restart.txt`
+
+#### Provjera logova
+cPanel → Node.js App → klikni na aplikaciju → sekcija Logs
 
 ### 7.3 Deploy web portala na cPanel
 
