@@ -453,6 +453,7 @@ Pre nego što počneš, pročitaj sledeće fajlove:
 - Ažuriraj .claude/progress.md — označi Fazu 5 kao završenu
 - Ažuriraj .claude/tasks.md — označi sve Faza 5 taskove kao [x]
 - Napiši "✅ Context files ažurirani" kao poslednju poruku
+- Napisi mi E2E user test plan
 ```
 
 ---
